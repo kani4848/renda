@@ -42,7 +42,7 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         StateTrriger();
         StateAction();

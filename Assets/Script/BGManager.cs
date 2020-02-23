@@ -15,7 +15,7 @@ public class BGManager : MonoBehaviour
         currentBg.transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isScroll)
         {

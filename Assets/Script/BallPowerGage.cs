@@ -7,7 +7,7 @@ public class BallPowerGage : MonoBehaviour
     public Vector2 gageSaize;
     public BattleManager battleManager;
     
-    void Update()
+    void FixedUpdate()
     {
 
         if(battleManager.state == BattleManager.STATE.CHARGE && gameObject.GetComponent<RectTransform>().sizeDelta.y > 0)

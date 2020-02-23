@@ -10,7 +10,7 @@ public class BGController : MonoBehaviour
     public float ballSpeed = 0;
     public AudioSource crushSE;
 
-    void Update()
+    void FixedUpdate()
     {
         if (isScroll)
         {
