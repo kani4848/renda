@@ -76,7 +76,7 @@ public class BattleManager : MonoBehaviour
                 break;
 
             case STATE.THROW:
-                if (ballSpeed <= 20)
+                if (ballSpeed <= 30)
                 {
                     ball.GetComponent<Animator>().SetTrigger("isFall");
                     state = STATE.STOP;
@@ -146,7 +146,7 @@ public class BattleManager : MonoBehaviour
                 ballSpeed -= 0.1f;
                 break;
             case STATE.STOP:
-                ballSpeed -= 0.1f;
+                ballSpeed -= 0.3f;
                 break;
             case STATE.END:
                 break;

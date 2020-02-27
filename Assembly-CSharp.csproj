@@ -70,6 +70,7 @@
     <Compile Include="Assets\Script\CameraSetting.cs" />
     <Compile Include="Assets\Script\CameraSizeUpdater.cs" />
     <Compile Include="Assets\Script\CharaController.cs" />
+    <Compile Include="Assets\Script\PracticeButtonController.cs" />
     <Compile Include="Assets\Script\TestPhysics.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>/Users/shibata.kyohei/Desktop/renda/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
