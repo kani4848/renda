@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/shibata.kyohei/Desktop/renda/renda/renda/renda.csproj": {}
+  },
+  "projects": {
+    "/Users/shibata.kyohei/Desktop/renda/renda/renda/renda.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/shibata.kyohei/Desktop/renda/renda/renda/renda.csproj",
+        "projectName": "renda",
+        "projectPath": "/Users/shibata.kyohei/Desktop/renda/renda/renda/renda.csproj",
+        "packagesPath": "/Users/shibata.kyohei/.nuget/packages/",
+        "outputPath": "/Users/shibata.kyohei/Desktop/renda/renda/renda/obj/",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "/Users/shibata.kyohei/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "xamarinios10"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "xamarinios10": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "xamarinios10": {
+          "dependencies": {
+            "Xamarin.Essentials": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    }
+  }
+}

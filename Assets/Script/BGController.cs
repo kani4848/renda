@@ -14,7 +14,7 @@ public class BGController : MonoBehaviour
     {
         if (isScroll)
         {
-            ballSpeed = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManager>().ballSpeed;
+            ballSpeed = GameObject.FindGameObjectWithTag("BattleManager").GetComponent<BattleManagerScript>().ballSpeed;
             gameObject.transform.position -= new Vector3(ballSpeed,0,0);
             
             if (gameObject.transform.position.x < 0 + 300 && !isCrush)
@@ -26,9 +26,9 @@ public class BGController : MonoBehaviour
         }
 
 
-        if (gameObject.transform.position.x < -1080*3)
+        if (gameObject.transform.position.x < Screen.width*-3)
         {
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
     }
 }

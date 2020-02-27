@@ -1,0 +1,35 @@
+﻿<Properties StartupConfiguration="{E6646279-3E7D-3BD2-4E28-83112E4AE31F}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/CameraSetting.cs">
+    <Files>
+      <File FileName="Assets/Script/BattleManager.cs" Line="41" Column="31" />
+      <File FileName="Assets/Script/BGController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/BGManager.cs" />
+      <File FileName="Assets/Script/CharaController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/BallPowerGage.cs" />
+      <File FileName="Assets/Script/CameraSizeUpdater.cs" />
+      <File FileName="Assets/Script/CameraSetting.cs" Line="46" Column="39" />
+      <File FileName="Assets/Script/PracticeButtonController.cs" Line="20" Column="12" />
+      <File FileName="Assets/Script/ButtonConroller.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="renda" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Script" expanded="True">
+                <Node name="CameraSetting.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="c0aa21a7-296b-4827-96ad-39240041f55a" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

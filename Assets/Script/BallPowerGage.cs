@@ -5,12 +5,12 @@ using UnityEngine;
 public class BallPowerGage : MonoBehaviour
 {
     public Vector2 gageSaize;
-    public BattleManager battleManager;
+    public BattleManagerScript battleManager;
     
     void Update()
     {
 
-        if(battleManager.state == BattleManager.STATE.CHARGE && gameObject.GetComponent<RectTransform>().sizeDelta.y > 0)
+        if(battleManager.state == BattleManagerScript.STATE.CHARGE && gameObject.GetComponent<RectTransform>().sizeDelta.y > 0)
         {
             gameObject.GetComponent<RectTransform>().sizeDelta -= new Vector2(0,1);
         }

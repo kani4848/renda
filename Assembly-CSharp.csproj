@@ -64,37 +64,45 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\BGController.cs" />
+    <Compile Include="Assets\Script\BGMController.cs" />
     <Compile Include="Assets\Script\BGManager.cs" />
     <Compile Include="Assets\Script\BallPowerGage.cs" />
-    <Compile Include="Assets\Script\BattleManager.cs" />
+    <Compile Include="Assets\Script\BattleManagerScript.cs" />
     <Compile Include="Assets\Script\ButtonConroller.cs" />
+    <Compile Include="Assets\Script\CameraSetting.cs" />
+    <Compile Include="Assets\Script\CameraSizeUpdater.cs" />
     <Compile Include="Assets\Script\CharaController.cs" />
+    <Compile Include="Assets\Script\JumpBallButtonController.cs" />
+    <Compile Include="Assets\Script\JumpBallManagerScript.cs" />
+    <Compile Include="Assets\Script\JumpSEScript.cs" />
+    <Compile Include="Assets\Script\PracticeButtonController.cs" />
+    <Compile Include="Assets\Script\TestPhysics.cs" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>D:/shibata/my_game/renda/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>D:/shibata/MyGame/renda/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>D:/shibata/my_game/renda/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>D:/shibata/MyGame/renda/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/shibata/my_game/renda/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/shibata/MyGame/renda/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/shibata/my_game/renda/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/shibata/MyGame/renda/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>D:/shibata/my_game/renda/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>D:/shibata/MyGame/renda/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/shibata/my_game/renda/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/shibata/MyGame/renda/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>D:/shibata/my_game/renda/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>D:/shibata/MyGame/renda/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/shibata/my_game/renda/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/shibata/MyGame/renda/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/shibata/my_game/renda/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/shibata/MyGame/renda/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.0f6/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>

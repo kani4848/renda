@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ButtonConroller : MonoBehaviour
 {
     public bool pushed = false;
-    public BattleManager battleManager;
+    public BattleManagerScript battleManager;
     public AudioSource audioSource;
     public AudioClip chargeSE;
     public Text buttonText;
@@ -19,12 +19,12 @@ public class ButtonConroller : MonoBehaviour
 
     private void Update()
     {
-        if (battleManager.state == BattleManager.STATE.THROW)
+        if (battleManager.state == BattleManagerScript.STATE.THROW)
         {
             gameObject.transform.position = new Vector3(0, -2000, 0);
         }
 
-        if (battleManager.state == BattleManager.STATE.END)
+        if (battleManager.state == BattleManagerScript.STATE.END)
         {
             gameObject.transform.position = new Vector3(0, -680, 0);
             buttonText.text = "再挑戦";
@@ -33,7 +33,7 @@ public class ButtonConroller : MonoBehaviour
 
     public void OnClick()
     {
-        if(battleManager.state == BattleManager.STATE.CHARGE || battleManager.state == BattleManager.STATE.IDLE)
+        if(battleManager.state == BattleManagerScript.STATE.CHARGE || battleManager.state == BattleManagerScript.STATE.IDLE)
         {
             pushed = true;
             battleManager.pushCount++;
@@ -41,7 +41,7 @@ public class ButtonConroller : MonoBehaviour
         }
  
 
-        if (battleManager.state == BattleManager.STATE.END)
+        if (battleManager.state == BattleManagerScript.STATE.END)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
