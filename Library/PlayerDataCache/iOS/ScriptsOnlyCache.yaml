@@ -2,12 +2,15 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - BGController
+    - BGMController
     - BGManager
     - BallPowerGage
-    - BattleManager
+    - BattleManagerScript
     - ButtonConroller
     - CameraSetting
-    - CharaController
+    - JumpBallButtonController
+    - JumpBallManagerScript
+    - JumpSEScript
     - PracticeButtonController
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
@@ -33,6 +36,148 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.RectMask2D
     - UnityEngine.UI.Text
   sceneClasses:
+    Assets/Scenes/battle.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11200}
+    - Class: 114
+      Script: {instanceID: 11334}
+    - Class: 114
+      Script: {instanceID: 11360}
+    - Class: 114
+      Script: {instanceID: 11400}
+    - Class: 114
+      Script: {instanceID: 11468}
+    - Class: 114
+      Script: {instanceID: 11598}
+    - Class: 114
+      Script: {instanceID: 11696}
+    - Class: 114
+      Script: {instanceID: 11718}
+    - Class: 114
+      Script: {instanceID: 11788}
+    - Class: 114
+      Script: {instanceID: 12172}
+    - Class: 114
+      Script: {instanceID: 12204}
+    - Class: 114
+      Script: {instanceID: 12398}
+    - Class: 114
+      Script: {instanceID: 12648}
+    - Class: 114
+      Script: {instanceID: 12664}
+    - Class: 114
+      Script: {instanceID: 13002}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    Assets/Scenes/jumpBall.unity:
+    - Class: 1
+      Script: {instanceID: 0}
+    - Class: 4
+      Script: {instanceID: 0}
+    - Class: 20
+      Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 28
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
+    - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
+    - Class: 104
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11200}
+    - Class: 114
+      Script: {instanceID: 11360}
+    - Class: 114
+      Script: {instanceID: 11400}
+    - Class: 114
+      Script: {instanceID: 11696}
+    - Class: 114
+      Script: {instanceID: 11788}
+    - Class: 114
+      Script: {instanceID: 11960}
+    - Class: 114
+      Script: {instanceID: 12172}
+    - Class: 114
+      Script: {instanceID: 12648}
+    - Class: 114
+      Script: {instanceID: 12666}
+    - Class: 114
+      Script: {instanceID: 12746}
+    - Class: 114
+      Script: {instanceID: 13002}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 128
+      Script: {instanceID: 0}
+    - Class: 157
+      Script: {instanceID: 0}
+    - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
     Assets/Scenes/score.unity:
     - Class: 1
       Script: {instanceID: 0}
@@ -61,35 +206,35 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11154}
+      Script: {instanceID: 11200}
     - Class: 114
-      Script: {instanceID: 11312}
+      Script: {instanceID: 11334}
     - Class: 114
-      Script: {instanceID: 11352}
+      Script: {instanceID: 11360}
     - Class: 114
-      Script: {instanceID: 11420}
+      Script: {instanceID: 11400}
     - Class: 114
-      Script: {instanceID: 11550}
+      Script: {instanceID: 11468}
     - Class: 114
-      Script: {instanceID: 11648}
+      Script: {instanceID: 11598}
     - Class: 114
-      Script: {instanceID: 11670}
+      Script: {instanceID: 11696}
     - Class: 114
-      Script: {instanceID: 11740}
+      Script: {instanceID: 11718}
     - Class: 114
-      Script: {instanceID: 11830}
+      Script: {instanceID: 11788}
     - Class: 114
-      Script: {instanceID: 12120}
+      Script: {instanceID: 12172}
     - Class: 114
-      Script: {instanceID: 12152}
+      Script: {instanceID: 12204}
     - Class: 114
-      Script: {instanceID: 12346}
+      Script: {instanceID: 12398}
     - Class: 114
-      Script: {instanceID: 12598}
+      Script: {instanceID: 12648}
     - Class: 114
-      Script: {instanceID: 12614}
+      Script: {instanceID: 12664}
     - Class: 114
-      Script: {instanceID: 12948}
+      Script: {instanceID: 13002}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -130,23 +275,23 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11154}
+      Script: {instanceID: 11200}
     - Class: 114
-      Script: {instanceID: 11312}
+      Script: {instanceID: 11360}
     - Class: 114
-      Script: {instanceID: 11352}
+      Script: {instanceID: 11400}
     - Class: 114
-      Script: {instanceID: 11648}
+      Script: {instanceID: 11696}
     - Class: 114
-      Script: {instanceID: 11740}
+      Script: {instanceID: 11788}
     - Class: 114
-      Script: {instanceID: 12120}
+      Script: {instanceID: 12058}
     - Class: 114
-      Script: {instanceID: 12598}
+      Script: {instanceID: 12172}
     - Class: 114
-      Script: {instanceID: 12948}
+      Script: {instanceID: 12648}
     - Class: 114
-      Script: {instanceID: 18746}
+      Script: {instanceID: 13002}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -210,6 +355,12 @@ ScriptsOnlyBuild:
     className: GroupTrack
   - hash:
       serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BGMController
+  - hash:
+      serializedVersion: 2
       Hash: a5781dc71a671b1ad2b38de19f24b71f
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -264,7 +415,7 @@ ScriptsOnlyBuild:
     className: GridLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: d2990bd8570d6b54a43357cb1c12105b
+      Hash: cb7bb80986ef987ae37a7f395ee33a0d
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BallPowerGage
@@ -336,7 +487,7 @@ ScriptsOnlyBuild:
     className: Mask
   - hash:
       serializedVersion: 2
-      Hash: 5195addfa85f0384c5231e813cc89d4a
+      Hash: 7c70dcbbe55ba87f63c9d8c56903b955
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: ButtonConroller
@@ -378,7 +529,7 @@ ScriptsOnlyBuild:
     className: Selectable
   - hash:
       serializedVersion: 2
-      Hash: a2c6afffbfc99e0a0c54ae37bdb5460f
+      Hash: 9c610d22a43275ec805a11f20f8d1d44
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: CharaController
@@ -388,6 +539,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_Asset
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: JumpBallButtonController
   - hash:
       serializedVersion: 2
       Hash: d4020bafcd3ccbb5601a6e6c8ac78be0
@@ -415,6 +572,12 @@ ScriptsOnlyBuild:
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PracticeButtonController
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools.TestRunner.Callbacks
     className: RemoteTestResultSender
@@ -438,7 +601,7 @@ ScriptsOnlyBuild:
     className: RawImage
   - hash:
       serializedVersion: 2
-      Hash: 6284a61602a5e0269c9e699e0f93710e
+      Hash: f93c7da26a3b8d39e30497604312a44e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: BGManager
@@ -477,7 +640,7 @@ ScriptsOnlyBuild:
       Hash: 44aa5129be6394ef19ab077a6bd10c44
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
-    className: BattleManager
+    className: BattleManagerScript
   - hash:
       serializedVersion: 2
       Hash: e1300922cc039f41ab46a47f4cb05898
@@ -528,10 +691,22 @@ ScriptsOnlyBuild:
     className: BGController
   - hash:
       serializedVersion: 2
+      Hash: 0fd59c23b8b9673d602fe0cc42e760a3
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: JumpBallManagerScript
+  - hash:
+      serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
     className: BeforeAfterTestCommandState
+  - hash:
+      serializedVersion: 2
+      Hash: b25a60d09dfdb474981dd2033e6e07cc
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: JumpSEScript
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
@@ -640,14 +815,10 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: PracticeButtonController
   platform: 9
   scenePathNames:
   - Assets/Scenes/title.unity
   - Assets/Scenes/score.unity
-  playerPath: /Users/shibata.kyohei/Desktop/renda_ios
+  - Assets/Scenes/jumpBall.unity
+  - Assets/Scenes/battle.unity
+  playerPath: /Users/shibata.kyohei/Desktop/slot_ios

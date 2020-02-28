@@ -46,7 +46,7 @@ public class BattleManagerScript : MonoBehaviour
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
         StateTrriger();
         StateAction();
@@ -76,7 +76,7 @@ public class BattleManagerScript : MonoBehaviour
                         bgManager.isScroll = true;
                         state = STATE.THROW;
                         timeLimit = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y / 100;
-                        ballSpeed = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y / 10;
+                        ballSpeed = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y/5;
                     }
                     ball.SetActive(true);
                     charAnime.SetTrigger("isThrow");
@@ -88,7 +88,7 @@ public class BattleManagerScript : MonoBehaviour
                 break;
 
             case STATE.THROW:
-                if (ballSpeed <= 20)
+                if (ballSpeed <= 35)
                 {
                     ball.GetComponent<Animator>().SetTrigger("isFall");
                     state = STATE.STOP;
@@ -152,17 +152,10 @@ public class BattleManagerScript : MonoBehaviour
                 break;
 
             case STATE.THROW:
-                if (charAnime)
-                {
-                    if (charAnime.gameObject.transform.position.x < -1080)
-                    {
-                      //  Destroy(charAnime.gameObject);
-                    }
-                }
-                ballSpeed -= 0.1f;
+                ballSpeed -= 0.5f;
                 break;
             case STATE.STOP:
-                ballSpeed -= 0.1f;
+                ballSpeed -= 0.7f;
                 break;
 
             case STATE.BATTLE_THROW:

@@ -22,7 +22,7 @@ public class BGManager : MonoBehaviour
         battleManagerScript.charAnime = player.GetComponent<Animator>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (isScroll)
         {
