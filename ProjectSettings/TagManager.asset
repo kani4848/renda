@@ -6,6 +6,8 @@ TagManager:
   tags:
   - BattleManager
   - BGMController
+  - ScoreManager
+  - DontDestroyPara
   layers:
   - Default
   - TransparentFX

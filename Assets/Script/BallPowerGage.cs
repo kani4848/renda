@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class BallPowerGage : MonoBehaviour
 {
-    public Vector2 gageSaize;
-    public BattleManagerScript battleManager;
-    
+    public float gageHeight;
+    public bool isCharge = false;
+
     void FixedUpdate()
     {
-
-        if(battleManager.state == BattleManagerScript.STATE.CHARGE && gameObject.GetComponent<RectTransform>().sizeDelta.y > 0)
+        if (isCharge)
         {
-            gameObject.GetComponent<RectTransform>().sizeDelta -= new Vector2(0,1);
+            if (gameObject.GetComponent<RectTransform>().sizeDelta.y > 0)
+            {
+                gameObject.GetComponent<RectTransform>().sizeDelta -= new Vector2(0, 1);
+            }
         }
     }
 }

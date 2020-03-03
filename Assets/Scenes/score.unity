@@ -1749,8 +1749,8 @@ GameObject:
   - component: {fileID: 1494702012}
   - component: {fileID: 1494702014}
   m_Layer: 0
-  m_Name: BattleManager
-  m_TagString: BattleManager
+  m_Name: ScoreManager
+  m_TagString: ScoreManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1767,6 +1767,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2147164a28adc1d45b718b4e90442bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  plusPower: 0
   pushCount: 0
   prePushCount: 0
   ballSpeed: 20
@@ -1775,6 +1776,8 @@ MonoBehaviour:
   charAnime: {fileID: 0}
   ball: {fileID: 1902636019}
   bgManager: {fileID: 1075116174}
+  pastTime: 0
+  timeLimit: 2
   audioSource: {fileID: 1494702014}
   throwSE: {fileID: 8300000, guid: 2a90883e0c7600642ac56d2c8e5bb752, type: 3}
   resultSE: {fileID: 8300000, guid: e8b49191f78e7d049a1d1018992c9268, type: 3}

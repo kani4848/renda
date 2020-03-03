@@ -6,15 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/title.unity
+    path: Assets/Scenes/Title.unity
     guid: 0b491b5bcdf5e4c6592bedf6eaf926d4
   - enabled: 1
-    path: Assets/Scenes/score.unity
+    path: Assets/Scenes/Score.unity
     guid: e7ed7c8b5761bca46a3adcece192676e
   - enabled: 1
-    path: Assets/Scenes/jumpBall.unity
+    path: Assets/Scenes/JumpBall.unity
     guid: 698bb90c7606bea47941e048d2e375d5
   - enabled: 1
-    path: Assets/Scenes/battle.unity
+    path: Assets/Scenes/Battle.unity
     guid: 81f819e1722513845b18b45c2231716f
+  - enabled: 1
+    path: Assets/Scenes/Ball.unity
+    guid: 516a74d0a933be04ca3cd5d08ed99c3e
   m_configObjects: {}
