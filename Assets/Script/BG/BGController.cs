@@ -38,10 +38,11 @@ public class BGController : MonoBehaviour
         {
             gameObject.transform.position -= new Vector3(scrollSpeed,0,0);
         }
-
-        if (gameObject.transform.position.x < Screen.width*-3)
+        /*
+        if (gameObject.transform.position.x < Screen.width*-3 || gameObject.transform.position.x > Screen.width * 3)
         {
            Destroy(gameObject);
         }
+        */
     }
 }

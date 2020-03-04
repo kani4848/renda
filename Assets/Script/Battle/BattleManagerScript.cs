@@ -10,12 +10,13 @@ public class BattleManagerScript : MonoBehaviour
 
     //制限時間用変数
     private float pastTime;
-    private float timeLimit = 2;
+    private float timeLimit = 1;
 
     //参照するGameObject群
     public Animator charaAnim;
     public RendaButtonConroller rendaButton;
     public BallPowerGage ballPowerGage;
+    public BgManager bgManager;
     private DontDestroyPara dontDestroyPara;
 
     public enum STATE
@@ -24,9 +25,7 @@ public class BattleManagerScript : MonoBehaviour
         CHARGE,
         THROW,
         CATCH,
-        OPPONENT_CATCH,
-        OPPONENT_CHARGE,
-        OPPONENT_THROW,
+        CATCH_LOOP,
         STOP,
 
         END
@@ -36,21 +35,22 @@ public class BattleManagerScript : MonoBehaviour
     private void Start()
     {
         dontDestroyPara = GameObject.FindGameObjectWithTag("DontDestroyPara").GetComponent<DontDestroyPara>();
-        state = STATE.IDLE;
-
+        
         if (dontDestroyPara.isLanded)
         {
             charaAnim.SetTrigger("isLanded");
+            state = STATE.CATCH;
         }
+        else
+        {
+            state = STATE.IDLE;
+        }
+
         if (dontDestroyPara.isOpponent)
         {
             charaAnim.gameObject.transform.localScale = new Vector3(-1, 1, 1);
         }
-        if (dontDestroyPara.isCatch)
-        {
-            charaAnim.SetTrigger("isCatch");
-            state = STATE.CATCH;
-        }
+        bgManager = GetComponent<BgManager>();
     }
     private void FixedUpdate()
     {
@@ -95,16 +95,35 @@ public class BattleManagerScript : MonoBehaviour
                     dontDestroyPara.isOpponent = false;
                 }
                 dontDestroyPara.isLanded = true;
-                dontDestroyPara.isCatch = true;
                 state = STATE.END;
                 break;
 
             case STATE.CATCH:
-                charaAnim.SetTrigger("isCatchSucess");
-                state = STATE.IDLE;
+                
+                if(Time.time > timeLimit)
+                {
+                    bgManager.isScroll = true;
+                    bgManager.isGround = true;
+
+                    charaAnim.SetTrigger("isCatchSucess");
+                    if (dontDestroyPara.isOpponent)
+                    {
+                        bgManager.isReverse = true;
+                    }
+                    else
+                    {
+                        bgManager.isReverse = false;
+                    }
+                    state = STATE.CATCH_LOOP;
+                }
                 break;
 
-            case STATE.OPPONENT_CATCH:
+            case STATE.CATCH_LOOP:
+                if (Time.time > timeLimit)
+                {
+                    bgManager.isScroll = false;
+                    charaAnim.SetTrigger("isIdle");
+                }
                 break;
 
             case STATE.STOP:
@@ -141,9 +160,6 @@ public class BattleManagerScript : MonoBehaviour
             case STATE.CATCH:
                 break;
 
-            case STATE.OPPONENT_CATCH:
-                break;
-
             case STATE.STOP:
                 break;
 
@@ -152,3 +168,4 @@ public class BattleManagerScript : MonoBehaviour
         }
     }
 }
+

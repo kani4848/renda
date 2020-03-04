@@ -11,20 +11,18 @@ public class GroundScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.SetActive(false);
         ground1.enabled = false;
         ground2.enabled = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    {
-        if (isGround)
-        {
-            if (gameObject.transform.position.x > 0)
-            {
-                ground1.enabled = true;
-                ground2.enabled = true;
-            }
+    {    
+        if (gameObject.transform.position.x > 0)     
+        {        
+            ground1.enabled = true;
+            ground2.enabled = true;
         }
     }
 }

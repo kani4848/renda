@@ -10,6 +10,7 @@ public class IwaScript : MonoBehaviour
     private void Start()
     {
         audioSource = gameObject.GetComponent<AudioSource>();
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame
