@@ -6,7 +6,7 @@ public class BattleManagerScript : MonoBehaviour
     //スピード変換前のパワー
     public int power = 0;
     //パワーをもとに算出するボールスピード
-    public float ballSpeed = 0;
+    private float ballSpeed = 400;
 
     //制限時間用変数
     private float pastTime;
@@ -25,7 +25,8 @@ public class BattleManagerScript : MonoBehaviour
         CHARGE,
         THROW,
         CATCH,
-        CATCH_LOOP,
+        CATCH_SUCSESS,
+        CATCH_FAIL,
         STOP,
 
         END
@@ -35,22 +36,21 @@ public class BattleManagerScript : MonoBehaviour
     private void Start()
     {
         dontDestroyPara = GameObject.FindGameObjectWithTag("DontDestroyPara").GetComponent<DontDestroyPara>();
-        
+        bgManager = GetComponent<BgManager>();
+        state = STATE.IDLE;
+
         if (dontDestroyPara.isLanded)
         {
             charaAnim.SetTrigger("isLanded");
             state = STATE.CATCH;
-        }
-        else
-        {
-            state = STATE.IDLE;
+            pastTime = Time.time+2;
         }
 
         if (dontDestroyPara.isOpponent)
         {
             charaAnim.gameObject.transform.localScale = new Vector3(-1, 1, 1);
+            bgManager.isOpponent = true;
         }
-        bgManager = GetComponent<BgManager>();
     }
     private void FixedUpdate()
     {
@@ -100,29 +100,47 @@ public class BattleManagerScript : MonoBehaviour
 
             case STATE.CATCH:
                 
-                if(Time.time > timeLimit)
+                if(Time.time > pastTime)
                 {
-                    bgManager.isScroll = true;
-                    bgManager.isGround = true;
+                    float random = Random.value;
+                    SEScript playSE = GetComponent<SEScript>();
+                    playSE.PlaySE();
 
-                    charaAnim.SetTrigger("isCatchSucess");
-                    if (dontDestroyPara.isOpponent)
+                    if (random >0.2)
                     {
-                        bgManager.isReverse = true;
+                        charaAnim.SetTrigger("isCatchSucess");
+                        playSE.PlaySE2();
+                        state = STATE.CATCH_SUCSESS;
                     }
                     else
                     {
-                        bgManager.isReverse = false;
+                        charaAnim.SetTrigger("isCatchFail");
+                        pastTime = Time.time + 2;
+                        state = STATE.CATCH_FAIL;
                     }
-                    state = STATE.CATCH_LOOP;
+                    bgManager.isScroll = true;
+                    bgManager.isGround = true;
+                    
+                    
+                    
                 }
                 break;
 
-            case STATE.CATCH_LOOP:
-                if (Time.time > timeLimit)
+            case STATE.CATCH_FAIL:
+                if(Time.time > pastTime)
                 {
+                    GetComponent<SceneChangeScript>().SceneChange();
+                }
+
+                break;
+
+            case STATE.CATCH_SUCSESS:
+                if (ballSpeed <= 0)
+                {
+                    ballSpeed = 0;
                     bgManager.isScroll = false;
                     charaAnim.SetTrigger("isIdle");
+                    state = STATE.IDLE;
                 }
                 break;
 
@@ -157,7 +175,28 @@ public class BattleManagerScript : MonoBehaviour
                 }
                 break;
 
-            case STATE.CATCH:
+            case STATE.CATCH_FAIL:
+                if (dontDestroyPara.isOpponent)
+                {
+                    bgManager.ballSpeed = ballSpeed;
+                }
+                else
+                {
+                    bgManager.ballSpeed = -ballSpeed;
+                }
+                break;
+
+            case STATE.CATCH_SUCSESS:
+                ballSpeed -= 5;
+                if (dontDestroyPara.isOpponent)
+                {
+                    bgManager.ballSpeed = ballSpeed;
+                }
+                else
+                {
+                    bgManager.ballSpeed = -ballSpeed;
+                }
+                
                 break;
 
             case STATE.STOP:

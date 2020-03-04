@@ -4,25 +4,35 @@ using UnityEngine;
 
 public class GroundScript : MonoBehaviour
 {
-    public bool isGround;
-
+    public bool isOpponent = false;
     public Renderer ground1;
     public Renderer ground2;
     // Start is called before the first frame update
     void Start()
     {
-        gameObject.SetActive(false);
         ground1.enabled = false;
         ground2.enabled = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    {    
-        if (gameObject.transform.position.x > 0)     
-        {        
-            ground1.enabled = true;
-            ground2.enabled = true;
+    {
+        if (isOpponent)
+        {
+            if (gameObject.transform.position.x < 0)
+            {
+                ground1.enabled = true;
+                ground2.enabled = true;
+            }
         }
+        else
+        {
+            if (gameObject.transform.position.x > 0)
+            {
+                ground1.enabled = true;
+                ground2.enabled = true;
+            }
+        }
+        
     }
 }

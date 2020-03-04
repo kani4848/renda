@@ -6,6 +6,7 @@ public class SEScript : MonoBehaviour
 {
     private AudioSource audioSource;
     public AudioClip SE;
+    public AudioClip SE2;
 
     private void Start()
     {
@@ -15,5 +16,9 @@ public class SEScript : MonoBehaviour
     public void PlaySE()
     {
         audioSource.PlayOneShot(SE);
+    }
+    public void PlaySE2()
+    {
+        audioSource.PlayOneShot(SE2);
     }
 }

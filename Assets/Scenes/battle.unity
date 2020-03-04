@@ -1369,6 +1369,8 @@ GameObject:
   - component: {fileID: 1422287042}
   - component: {fileID: 1422287040}
   - component: {fileID: 1422287041}
+  - component: {fileID: 1422287043}
+  - component: {fileID: 1422287044}
   m_Layer: 0
   m_Name: BattleManager
   m_TagString: BattleManager
@@ -1404,7 +1406,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 0
-  ballSpeed: 0
   charaAnim: {fileID: 2036124096}
   rendaButton: {fileID: 901565145}
   ballPowerGage: {fileID: 489357464}
@@ -1424,9 +1425,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bg: {fileID: 1499599810970103444, guid: ff649bf960741d54cb9ea98754f6e28f, type: 3}
   isScroll: 0
-  isReverse: 0
+  isOpponent: 0
   isIwa: 0
   isGround: 0
+  ballSpeed: 0
 --- !u!212 &1422287042
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1477,6 +1479,33 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1422287043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422287038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a61bf2de3ca03245aa194bf8e15ece4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SE: {fileID: 8300000, guid: 2a90883e0c7600642ac56d2c8e5bb752, type: 3}
+  SE2: {fileID: 8300000, guid: 6a4cfe3bc19d26041adc1112e2b98699, type: 3}
+--- !u!114 &1422287044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422287038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc3fe354d9bbd24694d62a50d6a182e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: KO
 --- !u!1 &1453942167
 GameObject:
   m_ObjectHideFlags: 0
@@ -2066,6 +2095,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SE: {fileID: 8300000, guid: 2a90883e0c7600642ac56d2c8e5bb752, type: 3}
+  SE2: {fileID: 8300000, guid: 6a4cfe3bc19d26041adc1112e2b98699, type: 3}
 --- !u!114 &2036124098
 MonoBehaviour:
   m_ObjectHideFlags: 0

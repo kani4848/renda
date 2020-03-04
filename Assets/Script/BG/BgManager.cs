@@ -6,22 +6,24 @@ public class BgManager : MonoBehaviour
 {
     public GameObject bg;
     public bool isScroll = false;
-    public bool isReverse = false;
+    public bool isOpponent = false;
     public bool isIwa = false;
     public bool isGround = false;
 
     private List<GameObject> bgList = new List<GameObject>();
 
     private GameObject currentBg;
-    private float ballSpeed = 40;
+    public float ballSpeed = 0;
 
     private void Start()
     {
         currentBg = Instantiate(bg);
-        Destroy(currentBg.transform.Find("Ground7").gameObject);
-        Destroy(currentBg.transform.Find("Ground6").gameObject);
-        Destroy(currentBg.transform.Find("Ground5").gameObject);
-        Destroy(currentBg.transform.Find("Ground4").gameObject);
+        currentBg.GetComponent<BGController>().isFirst = true;
+        if (!isOpponent)
+        {
+
+            ballSpeed = -ballSpeed;
+        }
 
         bgList.Add(currentBg);
     }
@@ -50,53 +52,31 @@ public class BgManager : MonoBehaviour
 
         if (isGround)
         {
-            currentBg.transform.Find("Ground0").gameObject.SetActive(true);
-            currentBg.transform.Find("Ground1").gameObject.SetActive(true);
-            currentBg.transform.Find("Ground2").gameObject.SetActive(true);
-            currentBg.transform.Find("Ground3").gameObject.SetActive(true);
-            currentBg.transform.Find("Ground4").gameObject.SetActive(true);
-            currentBg.transform.Find("Ground5").gameObject.SetActive(true);
-            currentBg.transform.Find("Ground6").gameObject.SetActive(true);
-            currentBg.transform.Find("Ground7").gameObject.SetActive(true);
+            currentBg.GetComponent<BGController>().isGround = true;
         }
 
-        if (isReverse)
+        foreach (GameObject bg in bgList)
         {
-            if (ballSpeed >0)
-            {
-                ballSpeed = -ballSpeed;
-            }
-            foreach (GameObject bg in bgList)
-            {
-                bg.GetComponent<BGController>().isScroll = true;
-                bg.GetComponent<BGController>().scrollSpeed = ballSpeed;
-            }
-
-            if (currentBg.transform.position.x >= 0)
-            {
-                Vector3 currentPosition = currentBg.transform.position;
-                currentBg = Instantiate(bg, new Vector3(currentPosition.x - 1080 * 2 - ballSpeed, 0, 0), Quaternion.identity);
-                bgList.Add(currentBg);
-            }
-
+            bg.GetComponent<BGController>().isScroll = true;
+            bg.GetComponent<BGController>().scrollSpeed = ballSpeed;
         }
-        else
+
+        if (isOpponent)
         {
-            if (ballSpeed < 0)
-            {
-                ballSpeed = -ballSpeed;
-            }
-
-            foreach (GameObject bg in bgList)
-            {
-                bg.GetComponent<BGController>().isScroll = true;
-                bg.GetComponent<BGController>().scrollSpeed = ballSpeed;
-            }
-
+            currentBg.GetComponent<BGController>().isOpponent = true;
             if (currentBg.transform.position.x <= 0)
             {
                 Vector3 currentPosition = currentBg.transform.position;
                 currentBg = Instantiate(bg, new Vector3(currentPosition.x + 1080 * 2 - ballSpeed, 0, 0), Quaternion.identity);
+                bgList.Add(currentBg);
+            }
+        }
+        else
+        {
+            if (currentBg.transform.position.x >= 0)
+            {
+                Vector3 currentPosition = currentBg.transform.position;
+                currentBg = Instantiate(bg, new Vector3(currentPosition.x - 1080 * 2 - ballSpeed, 0, 0), Quaternion.identity);
                 bgList.Add(currentBg);
             }
         }
