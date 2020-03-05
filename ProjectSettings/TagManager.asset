@@ -8,6 +8,7 @@ TagManager:
   - BGMController
   - ScoreManager
   - DontDestroyPara
+  - HpGage
   layers:
   - Default
   - TransparentFX

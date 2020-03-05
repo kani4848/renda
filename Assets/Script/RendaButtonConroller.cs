@@ -35,19 +35,19 @@ public class RendaButtonConroller : MonoBehaviour
         float currentGage = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y;
         int plusPower = 0;
 
-        if (currentGage < 580)
+        if (currentGage < 900*0.5f)
         {
             plusPower = 100;
         }
-        else if (currentGage < 890)
+        else if (currentGage < 900*0.75f)
         {
             plusPower = 50;
         }
-        else if (currentGage < 1080)
+        else if (currentGage < 900*0.85f)
         {
             plusPower = 25;
         }
-        else if (currentGage < 1200)
+        else if (currentGage < 900*0.9f)
         {
             plusPower = 10;
         }

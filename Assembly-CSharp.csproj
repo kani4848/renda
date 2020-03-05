@@ -71,10 +71,10 @@
     <Compile Include="Assets\Script\BallPowerGage.cs" />
     <Compile Include="Assets\Script\Battle\BattleManagerScript.cs" />
     <Compile Include="Assets\Script\Battle\DontDestroyPara.cs" />
+    <Compile Include="Assets\Script\Battle\HpGageScript.cs" />
     <Compile Include="Assets\Script\CameraSetting.cs" />
     <Compile Include="Assets\Script\CameraSizeUpdater.cs" />
     <Compile Include="Assets\Script\CharaController.cs" />
-    <Compile Include="Assets\Script\Jump\JumpBallButtonController.cs" />
     <Compile Include="Assets\Script\Jump\JumpBallManagerScript.cs" />
     <Compile Include="Assets\Script\PracticeButtonController.cs" />
     <Compile Include="Assets\Script\RendaButtonConroller.cs" />
