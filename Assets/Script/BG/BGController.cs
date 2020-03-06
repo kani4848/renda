@@ -61,6 +61,13 @@ public class BGController : MonoBehaviour
             groundList.Add(ground6);
             groundList.Add(ground7);
         }
+        if (isGround)
+        {
+            foreach(GameObject ground in groundList)
+            {
+                ground.SetActive(true);
+            }
+        }
     }
 
     void FixedUpdate()

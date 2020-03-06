@@ -568,6 +568,7 @@ GameObject:
   - component: {fileID: 1399949670}
   - component: {fileID: 1399949669}
   - component: {fileID: 1399949668}
+  - component: {fileID: 1399949672}
   m_Layer: 0
   m_Name: ballAnim
   m_TagString: Untagged
@@ -620,6 +621,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SE: {fileID: 8300000, guid: 5572556297538f444b545e455ba39aa6, type: 3}
+  SE2: {fileID: 0}
+  SE3: {fileID: 0}
 --- !u!4 &1399949671
 Transform:
   m_ObjectHideFlags: 0
@@ -636,6 +639,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1399949672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1399949667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f38ada73eb107f4b802c0caf4e14efd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1423265175
 GameObject:
   m_ObjectHideFlags: 0

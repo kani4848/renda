@@ -12,6 +12,7 @@ public class GroundScript : MonoBehaviour
     {
         ground1.enabled = false;
         ground2.enabled = false;
+        gameObject.SetActive(false);
     }
 
     // Update is called once per frame

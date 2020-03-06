@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DontDestroyPara : MonoBehaviour
 {
@@ -13,12 +14,14 @@ public class DontDestroyPara : MonoBehaviour
 
     public float power;
     public float ballSpeed;
+    public float comBallSpeed;
 
 
     // Start is called before the first frame update
     void Start()
     {
         comJumpCatchSpeed = 0.4f;
+        comBallSpeed = 400;
 
         int gameObjectCount = FindObjectsOfType<DontDestroyPara>().Length;
 
@@ -27,5 +30,12 @@ public class DontDestroyPara : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(this);
+    }
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "KO")
+        {
+            Destroy(gameObject);
+        }
     }
 }

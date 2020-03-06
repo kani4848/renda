@@ -13,7 +13,7 @@ public class BgManager : MonoBehaviour
     private List<GameObject> bgList = new List<GameObject>();
 
     private GameObject currentBg;
-    public float ballSpeed = 0;
+    public float scrollSpeed = 0;
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class BgManager : MonoBehaviour
         if (!isOpponent)
         {
 
-            ballSpeed = -ballSpeed;
+            scrollSpeed = -scrollSpeed;
         }
 
         bgList.Add(currentBg);
@@ -58,7 +58,7 @@ public class BgManager : MonoBehaviour
         foreach (GameObject bg in bgList)
         {
             bg.GetComponent<BGController>().isScroll = true;
-            bg.GetComponent<BGController>().scrollSpeed = ballSpeed;
+            bg.GetComponent<BGController>().scrollSpeed = scrollSpeed;
         }
 
         if (isOpponent)
@@ -67,7 +67,7 @@ public class BgManager : MonoBehaviour
             if (currentBg.transform.position.x <= 0)
             {
                 Vector3 currentPosition = currentBg.transform.position;
-                currentBg = Instantiate(bg, new Vector3(currentPosition.x + 1080 * 2 - ballSpeed, 0, 0), Quaternion.identity);
+                currentBg = Instantiate(bg, new Vector3(currentPosition.x + 1080 * 2 - scrollSpeed, 0, 0), Quaternion.identity);
                 bgList.Add(currentBg);
             }
         }
@@ -76,7 +76,7 @@ public class BgManager : MonoBehaviour
             if (currentBg.transform.position.x >= 0)
             {
                 Vector3 currentPosition = currentBg.transform.position;
-                currentBg = Instantiate(bg, new Vector3(currentPosition.x - 1080 * 2 - ballSpeed, 0, 0), Quaternion.identity);
+                currentBg = Instantiate(bg, new Vector3(currentPosition.x - 1080 * 2 - scrollSpeed, 0, 0), Quaternion.identity);
                 bgList.Add(currentBg);
             }
         }

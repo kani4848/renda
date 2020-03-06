@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class HpGageScript : MonoBehaviour
 {
@@ -13,5 +15,13 @@ public class HpGageScript : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(this);
+    }
+
+    private void Update()
+    {
+        if(SceneManager.GetActiveScene().name == "KO")
+        {
+            Destroy(gameObject);
+        }
     }
 }

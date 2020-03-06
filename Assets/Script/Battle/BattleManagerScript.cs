@@ -6,7 +6,7 @@ public class BattleManagerScript : MonoBehaviour
     //スピード変換前のパワー
     public float power = 0;
     //パワーをもとに算出するボールスピード、アニメーションにも使うので変動
-    private float ballSpeed = 400;
+    private float ballSpeed = 0;
 
     private GameObject playerHp;
     private GameObject opponentHp;
@@ -19,6 +19,7 @@ public class BattleManagerScript : MonoBehaviour
     public Animator charaAnim;
     public RendaButtonConroller rendaButton;
     public BallPowerGage ballPowerGage;
+    public CatchGageScript catchGage;
     public BgManager bgManager;
     private DontDestroyPara dontDestroyPara;
 
@@ -50,6 +51,7 @@ public class BattleManagerScript : MonoBehaviour
             charaAnim.SetTrigger("isLanded");
             state = STATE.CATCH;
             pastTime = Time.time+2;
+            catchGage.gameObject.SetActive(true);
         }
 
         if (dontDestroyPara.isOpponent)
@@ -93,20 +95,22 @@ public class BattleManagerScript : MonoBehaviour
                 if (Time.time > pastTime)
                 {
                     ballPowerGage.isCharge = false;
-                    state = STATE.THROW;
                     charaAnim.SetTrigger("isThrow");
                     rendaButton.transform.position = new Vector3(0,2000,0); 
                     pastTime = Time.time + timeLimit;
                     if (dontDestroyPara.isOpponent)
                     {
-                        ballSpeed = 400;
+                        ballSpeed = dontDestroyPara.comBallSpeed;
                         dontDestroyPara.power = 0.5f;
+                        Debug.Log("power:" + dontDestroyPara.power);
                     }
                     else
                     {
                         ballSpeed = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y;
                         dontDestroyPara.power = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y / 900;
+                        Debug.Log("power:"+ dontDestroyPara.power);
                     }
+                    state = STATE.THROW;
                 }
                 break;
 
@@ -125,16 +129,27 @@ public class BattleManagerScript : MonoBehaviour
 
             case STATE.CATCH:
                 
-                if(Time.time > pastTime)
+                if(catchGage.isCatch)
                 {
+                    catchGage.CheckCatch();
                     float random = Random.value;
                     SEScript playSE = GetComponent<SEScript>();
                     playSE.PlaySE();
-                    playSE.PlaySE2();
-                    charaAnim.SetTrigger("isCatchSucess");
-                    state = STATE.CATCH_SUCSESS;
                     bgManager.isScroll = true;
-                    bgManager.isGround = true;
+                    if (catchGage.preventDamage == 0)
+                    {
+                        ballSpeed = 500;
+                        charaAnim.SetTrigger("isCatchFail");
+                        pastTime = Time.time + 2;
+                        state = STATE.CATCH_FAIL;
+                    }
+                    else
+                    {
+                        playSE.PlaySE2();
+                        charaAnim.SetTrigger("isCatchSucess");
+                        state = STATE.CATCH_SUCSESS;
+                        bgManager.isGround = true;
+                    }
                 }
                 break;
 
@@ -152,6 +167,7 @@ public class BattleManagerScript : MonoBehaviour
                     SEScript playSE = GetComponent<SEScript>();
                     playSE.PlaySE();
                     charaAnim.SetTrigger("isCatchFail");
+                    bgManager.isGround = false;
                     ballSpeed = 400;
                     pastTime = Time.time + 2;
                     state = STATE.CATCH_FAIL;
@@ -161,6 +177,7 @@ public class BattleManagerScript : MonoBehaviour
                     ballSpeed = 0;
                     bgManager.isScroll = false;
                     charaAnim.SetTrigger("isIdle");
+                    catchGage.gameObject.SetActive(false);
                     state = STATE.IDLE;
                 }
                 break;
@@ -199,11 +216,11 @@ public class BattleManagerScript : MonoBehaviour
             case STATE.CATCH_FAIL:
                 if (dontDestroyPara.isOpponent)
                 {
-                    bgManager.ballSpeed = ballSpeed;
+                    bgManager.scrollSpeed = ballSpeed;
                 }
                 else
                 {
-                    bgManager.ballSpeed = -ballSpeed;
+                    bgManager.scrollSpeed = -ballSpeed;
                 }
                 break;
 
@@ -211,7 +228,7 @@ public class BattleManagerScript : MonoBehaviour
                 ballSpeed -= 5;
                 if (dontDestroyPara.isOpponent)
                 {
-                    bgManager.ballSpeed = ballSpeed;
+                    bgManager.scrollSpeed = ballSpeed;
                     if (opponentHp.transform.localScale.x > 0)
                     {
                         opponentHp.transform.localScale -= new Vector3(dontDestroyPara.power/120, 0, 0);
@@ -220,11 +237,10 @@ public class BattleManagerScript : MonoBehaviour
                     {
                         opponentHp.transform.localScale = new Vector3(0, 1, 1);
                     }
-                    
                 }
                 else
                 {
-                    bgManager.ballSpeed = -ballSpeed;
+                    bgManager.scrollSpeed = -ballSpeed;
                     if (playerHp.transform.localScale.x > 0)
                     {
                         playerHp.transform.localScale -= new Vector3(dontDestroyPara.power / 120, 0, 0);

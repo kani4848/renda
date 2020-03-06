@@ -68,8 +68,10 @@
     <Compile Include="Assets\Script\BG\GroundScript.cs" />
     <Compile Include="Assets\Script\BG\IwaScript.cs" />
     <Compile Include="Assets\Script\BGMController.cs" />
+    <Compile Include="Assets\Script\Ball\BallSceneScript.cs" />
     <Compile Include="Assets\Script\BallPowerGage.cs" />
     <Compile Include="Assets\Script\Battle\BattleManagerScript.cs" />
+    <Compile Include="Assets\Script\Battle\CatchGageScript.cs" />
     <Compile Include="Assets\Script\Battle\DontDestroyPara.cs" />
     <Compile Include="Assets\Script\Battle\HpGageScript.cs" />
     <Compile Include="Assets\Script\CameraSetting.cs" />
