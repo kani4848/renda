@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class CatchGageScript : MonoBehaviour
 {
     public bool isCatch = false;
+    public bool isStart = false;
+
     private GameObject ball;
     private DontDestroyPara dontDestroyPara;
     public Text catchText;
@@ -15,10 +17,28 @@ public class CatchGageScript : MonoBehaviour
     public GameObject badZone;
     public GameObject greatZone;
     public GameObject goodZone;
+    public GameObject perfectZone;
+
+    private float badPos;
+    private float greatPos;
+    private float goodPos;
+    private float perfectPos;
+
+    private float badWidth;
+    private float greatWidth;
+    private float goodWidth;
+    private float perfectWidth;
+
+    private float intervalTime;
 
     private void Start()
     {
+        intervalTime = Time.time + 1;
+        preventDamage = 1;
+
         ball = transform.Find("ball").gameObject;
+        ball.SetActive(false);
+
         dontDestroyPara = GameObject.FindGameObjectWithTag("DontDestroyPara").GetComponent<DontDestroyPara>();
         catchText = transform.Find("CatchText").gameObject.GetComponent<Text>();
 
@@ -28,16 +48,32 @@ public class CatchGageScript : MonoBehaviour
             gage.transform.localScale = new Vector3(-1, 1, 1);
         }
         gameObject.SetActive(false);
+
+        badPos = badZone.transform.position.x;
+        goodPos = goodZone.transform.position.x;
+        greatPos = greatZone.transform.position.x;
+        perfectPos = perfectZone.transform.position.x;
+
+        badWidth = badZone.GetComponent<RectTransform>().sizeDelta.x;
+        goodWidth = goodZone.GetComponent<RectTransform>().sizeDelta.x;
+        greatWidth = greatZone.GetComponent<RectTransform>().sizeDelta.x;
+        perfectWidth = perfectZone.GetComponent<RectTransform>().sizeDelta.x;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (!isCatch)
+        if (Time.time > intervalTime)
+        {
+            ball.SetActive(true);
+            isStart = true;
+        }
+
+        if (!isCatch && isStart)
         {
             if (!dontDestroyPara.isOpponent)
             {
                 ball.transform.Translate(-dontDestroyPara.ballSpeed, 0, 0);
-                if (ball.transform.position.x < -450)
+                if (ball.transform.position.x < goodPos - goodWidth / 2)
                 {
                     CatchFail();
                     isCatch = true;
@@ -46,7 +82,7 @@ public class CatchGageScript : MonoBehaviour
             else
             {
                 ball.transform.Translate(dontDestroyPara.ballSpeed, 0, 0);
-                if (ball.transform.position.x > 450)
+                if (ball.transform.position.x > goodPos + goodWidth / 2)
                 {
                     CatchFail();
                     isCatch = true;
@@ -64,69 +100,39 @@ public class CatchGageScript : MonoBehaviour
     public void CheckCatch()
     {
         float ballPos = ball.transform.position.x;
-        float goodPos = goodZone.transform.position.x;
-        float greatPos = greatZone.transform.position.x;
 
-        if (dontDestroyPara.isOpponent)
+        if (ballPos >= goodPos - goodWidth / 2 && ballPos <= goodPos + goodWidth / 2)
         {
-            if (ballPos >= goodPos && ballPos <= 450)
+            if (ballPos >= greatPos - greatWidth / 2 && ballPos <= greatPos + greatWidth / 2)
             {
-                if (ballPos >= greatPos - 50 && ballPos <= greatPos + 50)
+                if (ballPos >= perfectPos - perfectWidth / 2 && ballPos <= perfectPos + perfectWidth / 2)
                 {
-                    if(ballPos == greatPos)
-                    {
-                        catchText.text = "Perfect!";
-                    }
-                    else
-                    {
-                        catchText.text = "Great!";
-                    }
+                    catchText.text = "Perfect!";
+
+                    preventDamage = 0;
                 }
                 else
                 {
-                    catchText.text = "Good!";
+                    catchText.text = "Great!";
+                    //preventDamage = 1 - (225 - Mathf.Abs(greatPos - ballPos)) / 225;
+                    preventDamage = 0.5f;
                 }
-                preventDamage = (225 - Mathf.Abs(greatPos - ballPos))/ 225;
-                Debug.Log("prevent:" + preventDamage + "greatPos:" +greatPos);
             }
             else
             {
-                CatchFail();
+                catchText.text = "Good!";
             }
         }
         else
         {
-            if (ballPos <= goodPos && ballPos >= -450)
-            {
-                if (ballPos <= greatPos + 50 && ballPos >= greatPos - 50)
-                {
-                    if (ballPos == greatPos)
-                    {
-                        catchText.text = "Perfect!";
-                    }
-                    else
-                    {
-                        catchText.text = "Great!";
-                    }
-                }
-                else
-                {
-                    catchText.text = "Good!";
-                }
-                preventDamage = (225 - Mathf.Abs(greatPos - ballPos)) / 225;
-                Debug.Log("prevent:" + preventDamage + "greatPos:" + greatPos);
-            }
-            else
-            {
-                CatchFail();
-            }
+            CatchFail();
         }
     }
 
     private void CatchFail()
     {
         catchText.text = "Fail!";
-        preventDamage = 0;
+        preventDamage = -1;
         gage.SetActive(false);
         ball.SetActive(false);
         gameObject.transform.Find("CatchButton").gameObject.SetActive(false);

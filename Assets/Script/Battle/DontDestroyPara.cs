@@ -13,15 +13,20 @@ public class DontDestroyPara : MonoBehaviour
     public float comJumpCatchSpeed;
 
     public float power;
+    public float damage;
+    public float updateDamage;
     public float ballSpeed;
-    public float comBallSpeed;
+
+    public float comChargePower;
+    public float comPrevent;
 
 
     // Start is called before the first frame update
     void Start()
     {
         comJumpCatchSpeed = 0.4f;
-        comBallSpeed = 400;
+        comChargePower = 1f;
+        comPrevent = 1f;
 
         int gameObjectCount = FindObjectsOfType<DontDestroyPara>().Length;
 

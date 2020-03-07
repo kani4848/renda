@@ -4,9 +4,14 @@ using UnityEngine;
 public class BattleManagerScript : MonoBehaviour
 {
     //スピード変換前のパワー
-    public float power = 0;
+    public int count = 0;
+    //各基本値
+    private float initDamage = 250;
+    private float initBgScroll = 400;
+    private float initBallSpeed = 30;
+
     //パワーをもとに算出するボールスピード、アニメーションにも使うので変動
-    private float ballSpeed = 0;
+    public float bgScrollSpeed;
 
     private GameObject playerHp;
     private GameObject opponentHp;
@@ -43,6 +48,7 @@ public class BattleManagerScript : MonoBehaviour
         playerHp = GameObject.FindGameObjectWithTag("HpGage").gameObject.transform.Find("PlayerHp").gameObject;
         opponentHp = GameObject.FindGameObjectWithTag("HpGage").gameObject.transform.Find("OpponentHp").gameObject;
 
+        bgScrollSpeed = 400;
         bgManager = GetComponent<BgManager>();
         state = STATE.IDLE;
 
@@ -56,6 +62,7 @@ public class BattleManagerScript : MonoBehaviour
 
         if (dontDestroyPara.isOpponent)
         {
+            catchGage.gameObject.SetActive(false);
             charaAnim.gameObject.transform.localScale = new Vector3(-1, 1, 1);
             bgManager.isOpponent = true;
         }
@@ -78,9 +85,12 @@ public class BattleManagerScript : MonoBehaviour
                 }
                 else
                 {
-                    pastTime = Time.time + timeLimit;
-                    charaAnim.SetTrigger("isCharge");
-                    state = STATE.CHARGE;
+                    if(Time.time > pastTime)
+                    {
+                        pastTime = Time.time + timeLimit;
+                        charaAnim.SetTrigger("isCharge");
+                        state = STATE.CHARGE;
+                    }
                 }
                 if (rendaButton.pushed)
                 {
@@ -94,22 +104,24 @@ public class BattleManagerScript : MonoBehaviour
             case STATE.CHARGE:
                 if (Time.time > pastTime)
                 {
-                    ballPowerGage.isCharge = false;
-                    charaAnim.SetTrigger("isThrow");
-                    rendaButton.transform.position = new Vector3(0,2000,0); 
-                    pastTime = Time.time + timeLimit;
-                    if (dontDestroyPara.isOpponent)
+                    float chargePower;
+                    //チャージゲージから背景スクロール速度とキャッチゲージ速度と基本ダメージを算出する。
+                    if (!dontDestroyPara.isOpponent)
                     {
-                        ballSpeed = dontDestroyPara.comBallSpeed;
-                        dontDestroyPara.power = 0.5f;
-                        Debug.Log("power:" + dontDestroyPara.power);
+                        chargePower = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y / 450;
                     }
                     else
                     {
-                        ballSpeed = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y;
-                        dontDestroyPara.power = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y / 900;
-                        Debug.Log("power:"+ dontDestroyPara.power);
+                        chargePower = dontDestroyPara.comChargePower;
                     }
+                    dontDestroyPara.ballSpeed = initBallSpeed * chargePower;
+                    dontDestroyPara.damage = initDamage * chargePower;
+
+                    ballPowerGage.isCharge = false;
+                    charaAnim.SetTrigger("isThrow");
+                    rendaButton.transform.position = new Vector3(0,2000,0);
+                    pastTime = Time.time + timeLimit;
+                    
                     state = STATE.THROW;
                 }
                 break;
@@ -128,27 +140,48 @@ public class BattleManagerScript : MonoBehaviour
                 break;
 
             case STATE.CATCH:
-                
+                if (dontDestroyPara.isOpponent)
+                {
+                    if(Time.time > pastTime)
+                    {
+                        catchGage.isCatch = true;
+                    }
+                }
                 if(catchGage.isCatch)
                 {
-                    catchGage.CheckCatch();
-                    float random = Random.value;
+                    if (!dontDestroyPara.isOpponent)
+                    {
+                        catchGage.CheckCatch();
+                    }
+                    else
+                    {
+                        catchGage.preventDamage = dontDestroyPara.comPrevent;
+                    }
+
                     SEScript playSE = GetComponent<SEScript>();
                     playSE.PlaySE();
                     bgManager.isScroll = true;
-                    if (catchGage.preventDamage == 0)
+                    if (catchGage.preventDamage < 0)
                     {
-                        ballSpeed = 500;
                         charaAnim.SetTrigger("isCatchFail");
                         pastTime = Time.time + 2;
+
+                        Debug.Log("キャッチ失敗");
                         state = STATE.CATCH_FAIL;
                     }
                     else
                     {
+                        //キャッチゲージを参照してダメージを軽減
+                        dontDestroyPara.damage *= catchGage.preventDamage;
+                        bgScrollSpeed = initBgScroll *(dontDestroyPara.damage/ initDamage );
+                        dontDestroyPara.updateDamage = dontDestroyPara.damage / (bgScrollSpeed / 5);
+
                         playSE.PlaySE2();
                         charaAnim.SetTrigger("isCatchSucess");
-                        state = STATE.CATCH_SUCSESS;
                         bgManager.isGround = true;
+
+                        Debug.Log("キャッチ成功");
+                        state = STATE.CATCH_SUCSESS;
                     }
                 }
                 break;
@@ -162,19 +195,26 @@ public class BattleManagerScript : MonoBehaviour
                 break;
 
             case STATE.CATCH_SUCSESS:
-                if (opponentHp.transform.localScale.x <= 0 || playerHp.transform.localScale.x <= 0)
+                //死亡
+                if (opponentHp.GetComponent<RectTransform>().sizeDelta.x <= 0 || playerHp.GetComponent<RectTransform>().sizeDelta.x <= 0)
                 {
                     SEScript playSE = GetComponent<SEScript>();
                     playSE.PlaySE();
                     charaAnim.SetTrigger("isCatchFail");
+                    bgScrollSpeed = 400;
                     bgManager.isGround = false;
-                    ballSpeed = 400;
                     pastTime = Time.time + 2;
+
+                    Debug.Log("HP0のため死亡");
                     state = STATE.CATCH_FAIL;
                 }
-                if (ballSpeed <= 0)
+                if (bgScrollSpeed <= 0)
                 {
-                    ballSpeed = 0;
+                    if (dontDestroyPara.isOpponent)
+                    {
+                        pastTime = Time.time + 0.5f; 
+                    }
+                    bgScrollSpeed = 0;
                     bgManager.isScroll = false;
                     charaAnim.SetTrigger("isIdle");
                     catchGage.gameObject.SetActive(false);
@@ -201,53 +241,46 @@ public class BattleManagerScript : MonoBehaviour
                 break;
 
             case STATE.THROW:
-                AnimatorClipInfo[] clipInfo = charaAnim.GetCurrentAnimatorClipInfo(0);
-
-                if (clipInfo[0].clip.name == "jump_idle")
-                {
-                    //時間内にボタンを押さなければボールとられる処理
-                    //ボタンを押してボールを取る処理
-                }
-                if (clipInfo[0].clip.name == "jump_catch")
-                {
-                }
                 break;
 
             case STATE.CATCH_FAIL:
                 if (dontDestroyPara.isOpponent)
                 {
-                    bgManager.scrollSpeed = ballSpeed;
+                    bgManager.scrollSpeed = bgScrollSpeed;
                 }
                 else
                 {
-                    bgManager.scrollSpeed = -ballSpeed;
+                    bgManager.scrollSpeed = -bgScrollSpeed;
                 }
                 break;
 
             case STATE.CATCH_SUCSESS:
-                ballSpeed -= 5;
+                bgScrollSpeed -= 5;
+                count++;
                 if (dontDestroyPara.isOpponent)
                 {
-                    bgManager.scrollSpeed = ballSpeed;
-                    if (opponentHp.transform.localScale.x > 0)
+                    Vector2 hp = opponentHp.GetComponent<RectTransform>().sizeDelta;
+                    bgManager.scrollSpeed = bgScrollSpeed;
+                    if (hp.x >= 0)
                     {
-                        opponentHp.transform.localScale -= new Vector3(dontDestroyPara.power/120, 0, 0);
+                        opponentHp.GetComponent<RectTransform>().sizeDelta -= new Vector2(dontDestroyPara.updateDamage,0);
                     }
                     else
                     {
-                        opponentHp.transform.localScale = new Vector3(0, 1, 1);
+                        opponentHp.GetComponent<RectTransform>().sizeDelta *= new Vector2(0, 1);
                     }
                 }
                 else
                 {
-                    bgManager.scrollSpeed = -ballSpeed;
-                    if (playerHp.transform.localScale.x > 0)
+                    Vector2 hp = playerHp.GetComponent<RectTransform>().sizeDelta;
+                    bgManager.scrollSpeed = -bgScrollSpeed;
+                    if (hp.x >= 0)
                     {
-                        playerHp.transform.localScale -= new Vector3(dontDestroyPara.power / 120, 0, 0);
+                        playerHp.GetComponent<RectTransform>().sizeDelta -= new Vector2(dontDestroyPara.updateDamage, 0);
                     }
                     else
                     {
-                        playerHp.transform.localScale = new Vector3(0, 1, 1);
+                        playerHp.GetComponent<RectTransform>().sizeDelta *= new Vector2(0, 1);
                     }
                 }
                 
