@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class BattleManagerScript : MonoBehaviour
 {
-    //スピード変換前のパワー
     public int count = 0;
+    public float chargePower;
     //各基本値
     private float initDamage = 250;
     private float initBgScroll = 400;
@@ -18,7 +18,8 @@ public class BattleManagerScript : MonoBehaviour
 
     //制限時間用変数
     private float pastTime;
-    private float timeLimit = 1;
+    //チャージの制限時間
+    private float timeLimit = 2;
 
     //参照するGameObject群
     public Animator charaAnim;
@@ -35,6 +36,7 @@ public class BattleManagerScript : MonoBehaviour
         THROW,
         CATCH,
         CATCH_SUCSESS,
+        CATCH_PERFECT,
         CATCH_FAIL,
         STOP,
 
@@ -79,10 +81,12 @@ public class BattleManagerScript : MonoBehaviour
         switch (state)
         {
             case STATE.IDLE:
+                //プレイヤーの処理
                 if (!dontDestroyPara.isOpponent)
                 {
                     rendaButton.transform.position = new Vector3(0, -630, 0);
                 }
+                //COMの処理
                 else
                 {
                     if(Time.time > pastTime)
@@ -92,6 +96,7 @@ public class BattleManagerScript : MonoBehaviour
                         state = STATE.CHARGE;
                     }
                 }
+                //共通の処理
                 if (rendaButton.pushed)
                 {
                     ballPowerGage.isCharge = true;
@@ -104,16 +109,6 @@ public class BattleManagerScript : MonoBehaviour
             case STATE.CHARGE:
                 if (Time.time > pastTime)
                 {
-                    float chargePower;
-                    //チャージゲージから背景スクロール速度とキャッチゲージ速度と基本ダメージを算出する。
-                    if (!dontDestroyPara.isOpponent)
-                    {
-                        chargePower = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y / 450;
-                    }
-                    else
-                    {
-                        chargePower = dontDestroyPara.comChargePower;
-                    }
                     dontDestroyPara.ballSpeed = initBallSpeed * chargePower;
                     dontDestroyPara.damage = initDamage * chargePower;
 
@@ -140,48 +135,68 @@ public class BattleManagerScript : MonoBehaviour
                 break;
 
             case STATE.CATCH:
+                //ＣＯＭは一定時間の後自動でキャッチ判定を行う
                 if (dontDestroyPara.isOpponent)
                 {
-                    if(Time.time > pastTime)
+                    catchGage.preventDamage = dontDestroyPara.comPrevent;
+                    if (Time.time > pastTime && !catchGage.isCatch)
                     {
                         catchGage.isCatch = true;
+                        pastTime = Time.time + 0.2f;
                     }
                 }
-                if(catchGage.isCatch)
+
+                if(!catchGage.isCatch && !dontDestroyPara.isOpponent)
                 {
-                    if (!dontDestroyPara.isOpponent)
-                    {
-                        catchGage.CheckCatch();
-                    }
-                    else
-                    {
-                        catchGage.preventDamage = dontDestroyPara.comPrevent;
-                    }
+                    pastTime = Time.time + 0.2f;
+                }
+
+                //キャッチ判定後の処理
+                if (catchGage.isCatch)
+                {
+                    charaAnim.SetTrigger("isFlash");
 
                     SEScript playSE = GetComponent<SEScript>();
-                    playSE.PlaySE();
-                    bgManager.isScroll = true;
                     if (catchGage.preventDamage < 0)
                     {
                         charaAnim.SetTrigger("isCatchFail");
-                        pastTime = Time.time + 2;
+                        if (Time.time > pastTime)
+                        {
+                            bgManager.isScroll = true;
+                            playSE.PlaySE();
+                            pastTime = Time.time + 2;
 
-                        Debug.Log("キャッチ失敗");
-                        state = STATE.CATCH_FAIL;
+                            state = STATE.CATCH_FAIL;
+                        }
                     }
-                    else
+                    else if (catchGage.preventDamage == 0)
                     {
-                        //キャッチゲージを参照してダメージを軽減
-                        dontDestroyPara.damage *= catchGage.preventDamage;
-                        bgScrollSpeed = initBgScroll *(dontDestroyPara.damage/ initDamage );
-                        dontDestroyPara.updateDamage = dontDestroyPara.damage / (bgScrollSpeed / 5);
+                        dontDestroyPara.damage *= 0;
+                        playSE.PlaySE();
+                        playSE.PlaySE3();
+                        charaAnim.SetTrigger("isCatchPerfect");
+                        pastTime = Time.time + 0.5f;
 
-                        playSE.PlaySE2();
+                        state = STATE.CATCH_PERFECT;
+                    }
+                    else 
+                    {                       
                         charaAnim.SetTrigger("isCatchSucess");
                         bgManager.isGround = true;
 
-                        Debug.Log("キャッチ成功");
-                        state = STATE.CATCH_SUCSESS;
+                        if(Time.time > pastTime)
+                        {
+                            //キャッチゲージを参照してダメージを軽減
+                            dontDestroyPara.damage *= catchGage.preventDamage;
+                            bgScrollSpeed = initBgScroll * (dontDestroyPara.damage / initDamage);
+                            dontDestroyPara.updateDamage = dontDestroyPara.damage / (bgScrollSpeed / 5);
+
+                            playSE.PlaySE();
+                            bgManager.isScroll = true;
+                            playSE.PlaySE2();
+
+                            state = STATE.CATCH_SUCSESS;
+                        }
                     }
                 }
                 break;
@@ -190,6 +205,17 @@ public class BattleManagerScript : MonoBehaviour
                 if(Time.time > pastTime)
                 {
                     GetComponent<SceneChangeScript>().SceneChange();
+                }
+
+                break;
+
+            case STATE.CATCH_PERFECT:
+                if(Time.time > pastTime)
+                {
+                    charaAnim.SetTrigger("isIdle");
+                    catchGage.gameObject.SetActive(false);
+
+                    state = STATE.IDLE;
                 }
 
                 break;
@@ -237,6 +263,54 @@ public class BattleManagerScript : MonoBehaviour
                 break;
 
             case STATE.CHARGE:
+                //チャージゲージから背景スクロール速度とキャッチゲージ速度と基本ダメージを算出する。
+                if (!dontDestroyPara.isOpponent)
+                {
+                    chargePower = ballPowerGage.GetComponent<RectTransform>().sizeDelta.y / ballPowerGage.maxGageHeight;
+                }
+                else
+                {
+                    chargePower = dontDestroyPara.comChargePower;
+                }
+
+                AnimatorClipInfo[] clipInfo = charaAnim.GetComponent<Animator>().GetCurrentAnimatorClipInfo(0);
+
+                if (clipInfo[0].clip.name == "PlayerBattleCharge1")
+                {
+                    if (chargePower >= 0.5f)
+                    {
+                        charaAnim.SetTrigger("isChargeUp");
+                    }
+                }
+                if (clipInfo[0].clip.name == "PlayerBattleCharge2")
+                {
+                    if (chargePower >= 0.75f)
+                    {
+                        charaAnim.SetTrigger("isChargeUp");
+                    }
+                    if (chargePower <= 0.5f)
+                    {
+                        charaAnim.SetTrigger("isChargeDown");
+                    }
+                }
+                if (clipInfo[0].clip.name == "PlayerBattleCharge3")
+                {
+                    if (chargePower >= 0.85f)
+                    {
+                        charaAnim.SetTrigger("isChargeUp");
+                    }
+                    if (chargePower <= 0.75f)
+                    {
+                        charaAnim.SetTrigger("isChargeDown");
+                    }
+                }
+                if (clipInfo[0].clip.name == "PlayerBattleCharge4")
+                {
+                    if (chargePower <= 0.85f)
+                    {
+                        charaAnim.SetTrigger("isChargeDown");
+                    }
+                }
 
                 break;
 
@@ -254,9 +328,15 @@ public class BattleManagerScript : MonoBehaviour
                 }
                 break;
 
+            case STATE.CATCH_PERFECT:
+
+                break;
+
             case STATE.CATCH_SUCSESS:
                 bgScrollSpeed -= 5;
                 count++;
+
+                //COMの処理
                 if (dontDestroyPara.isOpponent)
                 {
                     Vector2 hp = opponentHp.GetComponent<RectTransform>().sizeDelta;
@@ -270,6 +350,7 @@ public class BattleManagerScript : MonoBehaviour
                         opponentHp.GetComponent<RectTransform>().sizeDelta *= new Vector2(0, 1);
                     }
                 }
+                //プレイヤーの処理
                 else
                 {
                     Vector2 hp = playerHp.GetComponent<RectTransform>().sizeDelta;
@@ -277,10 +358,6 @@ public class BattleManagerScript : MonoBehaviour
                     if (hp.x >= 0)
                     {
                         playerHp.GetComponent<RectTransform>().sizeDelta -= new Vector2(dontDestroyPara.updateDamage, 0);
-                    }
-                    else
-                    {
-                        playerHp.GetComponent<RectTransform>().sizeDelta *= new Vector2(0, 1);
                     }
                 }
                 

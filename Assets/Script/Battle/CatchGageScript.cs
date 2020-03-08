@@ -64,7 +64,10 @@ public class CatchGageScript : MonoBehaviour
     {
         if (Time.time > intervalTime)
         {
-            ball.SetActive(true);
+            if (!isCatch)
+            {
+                ball.SetActive(true);
+            }
             isStart = true;
         }
 
@@ -94,6 +97,7 @@ public class CatchGageScript : MonoBehaviour
     public void StopBall()
     {
         isCatch = true;
+        CheckCatch();
         gameObject.transform.Find("CatchButton").gameObject.SetActive(false);
     }
 

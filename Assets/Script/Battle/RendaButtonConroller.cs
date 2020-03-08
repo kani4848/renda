@@ -7,26 +7,19 @@ using UnityEngine.SceneManagement;
 public class RendaButtonConroller : MonoBehaviour
 {
     public GameObject ballPowerGage;
+    public Animator charaAnim;
     public bool pushed = false;
+
+    private AudioSource audioSource;
 
     private void Update()
     {
-        /*
-        if (scoreManager.state == ScoreManagerScript.STATE.THROW)
-        {
-            gameObject.transform.position = new Vector3(0, -2000, 0);
-        }
-
-        if (scoreManager.state == ScoreManagerScript.STATE.END)
-        {
-            gameObject.transform.position = new Vector3(0, -680, 0);
-            buttonText.text = "再挑戦";
-        }
-        */
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void OnClick()
     {
+        audioSource.Play();
 
         if (!pushed)
         {

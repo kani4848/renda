@@ -13,6 +13,7 @@ public class BattleDebugScript : MonoBehaviour
     public Text catchFrame;
     public Text bgScrollSpeed;
     public Text preventDamage;
+    public Text state;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +28,8 @@ public class BattleDebugScript : MonoBehaviour
         updateDamage.text = "UpdateDamage:" + dontDestroyPara.updateDamage;
         catchFrame.text ="Count:" + battleManager.count;
         bgScrollSpeed.text = "BgScrollSpeed:" + battleManager.bgScrollSpeed;
+        //preventDamage.text = "PreventDamage:" + battleManager.catchGage.preventDamage;
         preventDamage.text = "PreventDamage:" + battleManager.catchGage.preventDamage;
+        state.text = "State:" + battleManager.state;
     }
 }

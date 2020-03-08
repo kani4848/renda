@@ -5,8 +5,13 @@ using UnityEngine;
 public class BallPowerGage : MonoBehaviour
 {
     public float gageHeight;
+    public float maxGageHeight;
     public bool isCharge = false;
 
+    private void Start()
+    {
+        maxGageHeight = transform.Find("BallPowerGage").GetComponent<RectTransform>().sizeDelta.y;
+    }
     void FixedUpdate()
     {
         if (isCharge)

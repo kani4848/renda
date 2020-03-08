@@ -25,7 +25,7 @@ public class DontDestroyPara : MonoBehaviour
     void Start()
     {
         comJumpCatchSpeed = 0.4f;
-        comChargePower = 1f;
+        comChargePower = 0.51f;
         comPrevent = 1f;
 
         int gameObjectCount = FindObjectsOfType<DontDestroyPara>().Length;
