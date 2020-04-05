@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
-public class DontDestroyPara : MonoBehaviour
+public class DontDestroyPara : MonoBehaviourPunCallbacks,IPunObservable
 {
-    public int playerNum = 0;
     public bool online = false;
     public bool isLanded = false;
     public bool isOpponent = false;
@@ -43,6 +43,16 @@ public class DontDestroyPara : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "KO")
         {
             Destroy(gameObject);
+        }
+    }
+
+    void IPunObservable.OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // 自身側が生成したオブジェクトの場合は
+            // 色相値と移動中フラグのデータを送信する
+            //stream.SendNext();
         }
     }
 }

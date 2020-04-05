@@ -1,33 +1,26 @@
 ﻿<Properties StartupConfiguration="{E6646279-3E7D-3BD2-4E28-83112E4AE31F}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/BattleManagerScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Script/Jump/GamePlayer.cs">
     <Files>
-      <File FileName="Assets/Script/BGController.cs" Line="33" Column="6" />
-      <File FileName="Assets/Script/BGManager.cs" Line="25" Column="23" />
       <File FileName="Assets/Script/CharaController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/BallPowerGage.cs" Line="10" Column="15" />
-      <File FileName="Assets/Script/CameraSizeUpdater.cs" Line="1" Column="1" />
-      <File FileName="Assets/Script/CameraSetting.cs" Line="1" Column="1" />
+      <File FileName="Assets/Script/CameraSetting.cs" />
       <File FileName="Assets/Script/PracticeButtonController.cs" />
-      <File FileName="Assets/Script/ButtonConroller.cs" />
-      <File FileName="Assets/Script/BattleManagerScript.cs" Line="158" Column="33" />
+      <File FileName="Assets/Script/Photon/ServerConnect.cs" Line="22" Column="57" />
+      <File FileName="Assets/Script/DontDestroyPara.cs" Line="14" Column="24" />
+      <File FileName="Assets/Script/Jump/JumpBallManagerScript.cs" Line="20" Column="45" />
+      <File FileName="Assets/Script/Jump/JumpOnline.cs" Line="10" Column="26" />
+      <File FileName="Assets/Script/Jump/GamePlayer.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="renda" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Script" expanded="True">
-                <Node name="BattleManagerScript.cs" selected="True" />
-              </Node>
-            </Node>
-          </Node>
+          <Node name="renda" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="39973e46-435f-46f1-b45a-ab9bad2619ca" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1bed6609-c0f3-4335-8870-8055963324f6" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
